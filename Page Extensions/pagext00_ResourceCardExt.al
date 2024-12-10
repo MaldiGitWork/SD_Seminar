@@ -37,14 +37,13 @@ pageextension 50100 "CSD ResourceCardExt" extends "Resource Card"
         }
     }
 
-    triggers
-    {
-        trigger OnAfterGetRecord()
-        begin
-            ShowMaxField := (Rec.Type = Enum::"ResourceType"::Room);
-            CurrPage.Update(false);
-        end;
-    }
+
+    trigger OnAfterGetRecord()
+    begin
+        ShowMaxField := (Rec.Type = Enum::"Resource Type"::Room);
+        CurrPage.Update(false);
+    end;
+
 
     var
         [InDataSet]
