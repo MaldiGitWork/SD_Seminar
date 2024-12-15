@@ -1,6 +1,6 @@
 page 50113 "CSD Seminar Registration List"
 {
-    // CSD1.00 - 2018-01-01 - D. E. Veloper
+    // CSD1.00 - 2024-12-03 - MaldiGitWork
     //   Chapter 6 - Lab 3
     //     - Created new page
 
@@ -9,7 +9,7 @@ page 50113 "CSD Seminar Registration List"
     Editable = false;
     PageType = List;
     SourceTable = "CSD Seminar Reg. Header";
-    UsageCategory=lists;
+    UsageCategory = lists;
 
     layout
     {
@@ -17,38 +17,38 @@ page 50113 "CSD Seminar Registration List"
         {
             repeater(Group)
             {
-                field("No.";"No.")
+                field("No."; rec."No.")
                 {
                 }
-                field("Starting Date";"Starting Date")
+                field("Starting Date"; rec."Starting Date")
                 {
                 }
-                field("Seminar No.";"Seminar No.")
+                field("Seminar No."; rec."Seminar No.")
                 {
                 }
-                field("Seminar Name";"Seminar Name")
+                field("Seminar Name"; rec."Seminar Name")
                 {
                 }
-                field(Status;Status)
+                field(Status; rec.Status)
                 {
                 }
-                field(Duration;Duration)
+                field(Duration; rec.Duration)
                 {
                 }
-                field("Maximum Participants";"Maximum Participants")
+                field("Maximum Participants"; rec."Maximum Participants")
                 {
                 }
-                field("Room Code";"Room Code")
+                field("Room Code"; rec."Room Code")
                 {
                 }
             }
         }
         area(factboxes)
         {
-            systempart("Links";Links)
+            systempart("Links"; Links)
             {
             }
-            systempart("Notes";Notes)
+            systempart("Notes"; Notes)
             {
             }
         }
@@ -66,15 +66,15 @@ page 50113 "CSD Seminar Registration List"
                     Caption = 'Co&mments';
                     Image = Comment;
                     RunObject = Page 50106;
-                    RunPageLink = "No."=Field("No.");
-                    RunPageView = where("Table Name"=Const("Seminar Registration"));
+                    RunPageLink = "No." = Field("No.");
+                    RunPageView = where("Table Name" = Const("Seminar Registration"));
                 }
                 action("&Charges")
                 {
                     Caption = '&Charges';
                     Image = Costs;
                     RunObject = Page 50124;
-                    RunPageLink = "Document No."=Field("No.");
+                    RunPageLink = "Document No." = Field("No.");
                 }
             }
         }

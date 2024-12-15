@@ -1,6 +1,6 @@
 page 50110 "CSD Seminar Registration"
 {
-    // CSD1.00 - 2018-01-01 - D. E. Veloper
+    // CSD1.00 - 2024-12-03 - MaldiGitWork
     //   Chapter 6 - Lab 3-1
     //     - Created new page
 
@@ -15,99 +15,109 @@ page 50110 "CSD Seminar Registration"
         {
             group(General)
             {
-                field("No.";"No.")
+                field("No."; rec."No.")
                 {
-                    AssistEdit=true;
+                    AssistEdit = true;
                     trigger OnAssistEdit();
                     begin
                         if AssistEdit(xRec) then
-                          CurrPage.UPDATE;
+                            CurrPage.UPDATE;
                     end;
                 }
-                field("Starting Date";"Starting Date")
+                field("Starting Date"; rec."Starting Date")
                 {
                 }
-                field("Seminar No.";"Seminar No.")
+                field("Seminar No."; rec."Seminar No.")
                 {
                 }
-                field("Seminar Name";"Seminar Name")
+                field("Seminar Name"; rec."Seminar Name")
                 {
                 }
-                field("Instructor Code";"Instructor Code")
+                field("Instructor Code"; rec."Instructor Code")
                 {
                 }
-                field("Instructor Name";"Instructor Name")
+                field("Instructor Name"; rec."Instructor Name")
                 {
                 }
-                field("Posting Date";"Posting Date")
+                field("Posting Date"; rec."Posting Date")
                 {
                 }
-                field("Document Date";"Document Date")
+                field("Document Date"; rec."Document Date")
                 {
                 }
-                field(Status;Status)
+                field(Status; rec.Status)
                 {
                 }
-                field(Duration;Duration)
+                field(Duration; rec.Duration)
                 {
                 }
-                field("Minimum Participants";"Minimum Participants")
+                field("Minimum Participants"; rec."Minimum Participants")
                 {
                 }
-                field("Maximum Participants";"Maximum Participants")
+                field("Maximum Participants"; rec."Maximum Participants")
                 {
                 }
             }
             group("Seminar Room")
             {
-                field("Room Code";"Room Code")
+                field("Room Code"; rec."Room Code")
                 {
                 }
-                field("Room Name";"Room Name")
+                field("Room Name"; rec."Room Name")
                 {
                 }
-                field("Room Address";"Room Address")
+                field("Room Address"; rec."Room Address")
                 {
                 }
-                field("Room Address 2";"Room Address 2")
+                field("Room Address 2"; rec."Room Address 2")
                 {
                 }
-                field("Room Post Code";"Room Post Code")
+                field("Room Post Code"; rec."Room Post Code")
                 {
                 }
-                field("Room City";"Room City")
+                field("Room City"; rec."Room City")
                 {
                 }
-                field("Room Country/Reg. Code";"Room Country/Reg. Code")
+                field("Room Country/Reg. Code"; rec."Room Country/Reg. Code")
                 {
                 }
-                field("Room County";"Room County")
+                field("Room County"; rec."Room County")
                 {
                 }
             }
+            part(SeminarRegistrationLines; "CSD Seminar Reg. Subpage")
+            {
+                Caption = 'Lines';
+                SubPageLink = "Document No." = field("No.");
+            }
             group(Invoicing)
             {
-                field("Gen. Prod. Posting Group";"Gen. Prod. Posting Group")
+                field("Gen. Prod. Posting Group"; rec."Gen. Prod. Posting Group")
                 {
                 }
-                field("VAT Prod. Posting Group";"VAT Prod. Posting Group")
+                field("VAT Prod. Posting Group"; rec."VAT Prod. Posting Group")
                 {
                 }
-                field("Seminar Price";"Seminar Price")
+                field("Seminar Price"; rec."Seminar Price")
                 {
                 }
             }
         }
         area(factboxes)
         {
-            part("Seminar Details FactBox";"CSD Seminar Details FactBox")
+            part("Seminar Details FactBox"; "CSD Seminar Details FactBox")
             {
-                SubPageLink="No."=field("Seminar No."); 
+                SubPageLink = "No." = field("Seminar No.");
             }
-            systempart("Links";Links)
+            part("Customer Details FactBox"; "Customer Details FactBox")
+            {
+                Provider = SeminarRegistrationLines;
+                SubPageLink = "No." = field("Bill-to Customer No.");
+            }
+            systempart("Links"; Links)
             {
             }
-            systempart("Notes";Notes)
+            systempart("Notes"; Notes)
             {
             }
         }
@@ -125,15 +135,15 @@ page 50110 "CSD Seminar Registration"
                     Caption = 'Co&mments';
                     Image = Comment;
                     RunObject = Page 50106;
-                    RunPageLink = "No."=Field("No.");
-                    RunPageView = where("Table Name"=Const("Seminar Registration"));
+                    RunPageLink = "No." = Field("No.");
+                    RunPageView = where("Table Name" = Const("Seminar Registration"));
                 }
                 action("&Charges")
                 {
                     Caption = '&Charges';
                     Image = Costs;
                     RunObject = Page 50124;
-                    RunPageLink = "Document No."=Field("No.");
+                    RunPageLink = "Document No." = Field("No.");
                 }
             }
         }

@@ -1,6 +1,6 @@
 page 50117 "CSD Seminar Details FactBox"
 {
-    // CSD1.00 - 2018-01-01 - D. E. Veloper
+    // CSD1.00 - 2024-12-03 - MaldiGitWork
     //   Chapter 6 - Lab 2
     //     - Created new page
 
@@ -12,22 +12,22 @@ page 50117 "CSD Seminar Details FactBox"
     {
         area(content)
         {
-            field("No.";"No.")
+            field("No."; rec."No.")
             {
             }
-            field(Name;Name)
+            field(Name; rec.Name)
             {
             }
-            field("Seminar Duration";"Seminar Duration")
+            field("Seminar Duration"; rec."Seminar Duration")
             {
             }
-            field("Minimum Participants";"Minimum Participants")
+            field("Minimum Participants"; rec."Minimum Participants")
             {
             }
-            field("Maximum Participants";"Maximum Participants")
+            field("Maximum Participants"; rec."Maximum Participants")
             {
             }
-            field("Seminar Price";"Seminar Price")
+            field("Seminar Price"; rec."Seminar Price")
             {
             }
         }

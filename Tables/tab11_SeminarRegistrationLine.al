@@ -1,5 +1,5 @@
 table 50111 "CSD Seminar Registration Line"
-// CSD1.00 - 2018-01-01 - D. E. Veloper
+// CSD1.00 - 2024-12-03 - MaldiGitWork
 //   Chapter 6 - Lab 1-5
 //     - Created new table
 {
@@ -70,10 +70,10 @@ table 50111 "CSD Seminar Registration Line"
                 end;
             end;
         }
-        field(5; "Participant Name"; Text[50])
+        field(5; "Participant Name"; Text[100])
         {
             Caption = 'Participant Name';
-            CalcFormula = Lookup (Contact.Name where ("No." = Field ("Participant Contact No.")));
+            CalcFormula = Lookup(Contact.Name where("No." = Field("Participant Contact No.")));
             Editable = false;
             FieldClass = FlowField;
         }

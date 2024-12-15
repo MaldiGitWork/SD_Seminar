@@ -1,13 +1,14 @@
 page 50111 "CSD Seminar Reg. Subpage"
 {
-    // CSD1.00 - 2018-01-01 - D. E. Veloper
+    // CSD1.00 - 2024-12-03 - MaldiGitWork
     //   Chapter 6 - Lab 3
     //     - Created new page
 
     Caption = 'Lines';
     DelayedInsert = true;
-    PageType = List;
+    PageType = ListPart;
     SourceTable = "CSD Seminar Registration Line";
+    AutoSplitKey = true;
 
     layout
     {
@@ -15,40 +16,40 @@ page 50111 "CSD Seminar Reg. Subpage"
         {
             repeater(Group)
             {
-                field("Bill-to Customer No.";"Bill-to Customer No.")
+                field("Bill-to Customer No."; rec."Bill-to Customer No.")
                 {
                 }
-                field("Participant Contact No.";"Participant Contact No.")
+                field("Participant Contact No."; rec."Participant Contact No.")
                 {
                 }
-                field("Participant Name";"Participant Name")
+                field("Participant Name"; rec."Participant Name")
                 {
                 }
-                field(Participated;Participated)
+                field(Participated; rec.Participated)
                 {
                 }
-                field("Registration Date";"Registration Date")
+                field("Registration Date"; rec."Registration Date")
                 {
                 }
-                field("Confirmation Date";"Confirmation Date")
+                field("Confirmation Date"; rec."Confirmation Date")
                 {
                 }
-                field("To Invoice";"To Invoice")
+                field("To Invoice"; rec."To Invoice")
                 {
                 }
-                field(Registered;Registered)
+                field(Registered; rec.Registered)
                 {
                 }
-                field("Seminar Price";"Seminar Price")
+                field("Seminar Price"; rec."Seminar Price")
                 {
                 }
-                field("Line Discount %";"Line Discount %")
+                field("Line Discount %"; rec."Line Discount %")
                 {
                 }
-                field("Line Discount Amount";"Line Discount Amount")
+                field("Line Discount Amount"; rec."Line Discount Amount")
                 {
                 }
-                field(Amount;Amount)
+                field(Amount; rec.Amount)
                 {
                 }
             }

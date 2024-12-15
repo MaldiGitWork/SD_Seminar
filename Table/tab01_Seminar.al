@@ -98,14 +98,6 @@ table 50101 "CSD Seminar"
             Editable = false;
             Caption = 'No. Series';
             TableRelation = "No. Series";
-            trigger OnInsert();
-            begin
-                if "No." = '' then begin
-                    SeminarSetup.get;
-                    SeminarSetup.TestField("Seminar Nos.");
-                    NoSeriesMgt.InitSeries(SeminarSetup."Seminar Nos.", xRec."No. Series", 0D, "No.", "No. Series");
-                end;
-            end;
         }
     }
 
@@ -158,4 +150,12 @@ table 50101 "CSD Seminar"
         //CommentLine.SetRange("No.","No."); 
     end;
 
+    trigger OnInsert();
+    begin
+        if "No." = '' then begin
+            SeminarSetup.get;
+            SeminarSetup.TestField("Seminar Nos.");
+            NoSeriesMgt.InitSeries(SeminarSetup."Seminar Nos.", xRec."No. Series", 0D, "No.", "No. Series");
+        end;
+    end;
 }
