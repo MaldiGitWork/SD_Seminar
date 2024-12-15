@@ -103,8 +103,7 @@ table 50101 "CSD Seminar"
                 if "No." = '' then begin
                     SeminarSetup.get;
                     SeminarSetup.TestField("Seminar Nos.");
-                    NoSeriesMgt.InitSeries(SeminarSetup."Seminar  
-                    Nos.",xRec."No. Series",0D,"No.","No. Series"); 
+                    NoSeriesMgt.InitSeries(SeminarSetup."Seminar Nos.", xRec."No. Series", 0D, "No.", "No. Series");
                 end;
             end;
         }
@@ -143,14 +142,14 @@ table 50101 "CSD Seminar"
             Seminar := Rec;
             SeminarSetup.get;
             SeminarSetup.TestField("Seminar Nos.");
-            if NoSeriesMgt.SelectSeries(SeminarSetup."Seminar Nos."  
-NoSeriesMgt.SetSeries("No.");
-            Rec := Seminar;
-            exit(true);
+            if NoSeriesMgt.SelectSeries(SeminarSetup."Seminar Nos.", xRec."No. Series", "No. Series") then begin
+                NoSeriesMgt.SetSeries("No.");
+                Rec := Seminar;
+                exit(true);
+            end;
         end;
-    end; 
-,xRec."No. Series","No. Series") then begin 
-end; 
+    end;
+
     trigger OnDelete();
     begin
         //CommentLine.Reset; 
@@ -158,5 +157,5 @@ end;
         //CommentLine."Table Name"::Seminar);  
         //CommentLine.SetRange("No.","No."); 
     end;
-    
+
 }

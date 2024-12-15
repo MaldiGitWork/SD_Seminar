@@ -40,7 +40,7 @@ pageextension 50100 "CSD ResourceCardExt" extends "Resource Card"
 
     trigger OnAfterGetRecord()
     begin
-        ShowMaxField := (Rec.Type = Enum::"Resource Type"::Room);
+        ShowMaxField := (Rec.Type = Enum::"Type of Resource"::Room);
         CurrPage.Update(false);
     end;
 

@@ -32,7 +32,7 @@ pageextension 50101 "CSD ResourceListExt" extends "Resource List"
     trigger OnOpenPage()
     begin
         ShowType := (Rec.GetFilter(Type) = '');
-        ShowMaxField := (Rec.GetFilter(Type) = Format(Enum::"Resource Type"::Room));
+        ShowMaxField := (Rec.GetFilter(Type) = Format(Enum::"Type of Resource"::Room));
     end;
 
     var

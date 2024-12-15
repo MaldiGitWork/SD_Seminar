@@ -54,12 +54,11 @@ page 50102 "CSD Seminar List"
         {
             group("&Seminar")
             {
-                action("Co&mments")
+                action("Comments")
                 {
                     RunObject = page "CSD Seminar Comment Sheet";
-                    RunPageLink = "Table  
-                 Name"=const(Seminar),"No."=field("No."); 
-                 Image = Comment;
+                    RunPageLink = "Table Name" = const(Seminar), "No." = field("No.");
+                    Image = Comment;
                 }
             }
         }
