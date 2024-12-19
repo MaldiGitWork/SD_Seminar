@@ -1,8 +1,8 @@
 {
   "id": "8bbebce2-9c82-4917-a0e3-ab39857a2d17",
   "name": "SD Seminar",
-  "publisher": "Default Publisher",
-  "version": "1.0.0.1",
+  "publisher": "A.B",
+  "version": "1.0.0.2",
   "brief": "",
   "description": "",
   "privacyStatement": "",
@@ -11,12 +11,12 @@
   "url": "",
   "logo": "",
   "screenshots": [],
-  "platform": "1.0.0.1",
+  "platform": "1.0.0.2",
   "application": "16.0.0.0",
   "idRanges": [
     {
       "from": 50100,
-      "to": 50149
+      "to": 50300
     }
   ],
   "dependencies": [
