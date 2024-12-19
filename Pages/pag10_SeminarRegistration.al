@@ -5,7 +5,7 @@ page 50110 "CSD Seminar Registration"
     //     - Created new page
 
     Caption = 'Seminar Registration';
-    PageType = Card;
+    PageType = Document;
     SourceTable = "CSD Seminar Reg. Header";
     UsageCategory = tasks;
 
@@ -18,9 +18,9 @@ page 50110 "CSD Seminar Registration"
                 field("No."; rec."No.")
                 {
                     AssistEdit = true;
-                    trigger OnAssistEdit();
+                    trigger OnAssistEdit()
                     begin
-                        if AssistEdit(xRec) then
+                        if Rec.AssistEdit(xRec) then
                             CurrPage.UPDATE;
                     end;
                 }
@@ -33,7 +33,7 @@ page 50110 "CSD Seminar Registration"
                 field("Seminar Name"; rec."Seminar Name")
                 {
                 }
-                field("Instructor Code"; rec."Instructor Code")
+                field("Instructor Resource No."; rec."Instructor Resource No.")
                 {
                 }
                 field("Instructor Name"; rec."Instructor Name")
@@ -60,7 +60,7 @@ page 50110 "CSD Seminar Registration"
             }
             group("Seminar Room")
             {
-                field("Room Code"; rec."Room Code")
+                field("Room Resource No."; rec."Room Resource No.")
                 {
                 }
                 field("Room Name"; rec."Room Name")
@@ -136,7 +136,7 @@ page 50110 "CSD Seminar Registration"
                     Image = Comment;
                     RunObject = Page 50106;
                     RunPageLink = "No." = Field("No.");
-                    RunPageView = where("Table Name" = Const("Seminar Registration"));
+                    //RunPageView = where("Table Name"= const(" "));
                 }
                 action("&Charges")
                 {

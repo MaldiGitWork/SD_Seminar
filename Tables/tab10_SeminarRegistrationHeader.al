@@ -66,9 +66,9 @@ table 50110 "CSD Seminar Reg. Header"
         {
             Caption = 'Seminar Name';
         }
-        field(5; "Instructor Code"; Code[20])
+        field(5; "Instructor Resource No."; Code[20])
         {
-            Caption = 'Instructor Code';
+            Caption = 'Instructor Resource No.';
             TableRelation = Resource where(Type = const(Person));
 
             trigger OnValidate();
@@ -103,14 +103,14 @@ table 50110 "CSD Seminar Reg. Header"
         {
             Caption = 'Minimum Participants';
         }
-        field(11; "Room Code"; Code[20])
+        field(11; "Room Resource No."; Code[20])
         {
-            Caption = 'Room Code';
+            Caption = 'Room Resource No.';
             TableRelation = Resource where(Type = const(Machine));
 
             trigger OnValidate();
             begin
-                if "Room Code" = '' then begin
+                if "Room Resource No." = '' then begin
                     "Room Name" := '';
                     "Room Address" := '';
                     "Room Address 2" := '';
@@ -119,7 +119,7 @@ table 50110 "CSD Seminar Reg. Header"
                     "Room County" := '';
                     "Room Country/Reg. Code" := '';
                 end else begin
-                    SeminarRoom.GET("Room Code");
+                    SeminarRoom.GET("Room Resource No.");
                     "Room Name" := SeminarRoom.Name;
                     "Room Address" := SeminarRoom.Address;
                     "Room Address 2" := SeminarRoom."Address 2";
@@ -226,150 +226,155 @@ table 50110 "CSD Seminar Reg. Header"
         field(22; Comment; Boolean)
         {
             Caption = 'Comment';
-
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = Exist("CSD Seminar Comment Line" where(Table Name=const(Seminar Registration Header),
-                                                              No.=Field(No.)));
-        
+            CalcFormula = Exist("CSD Seminar Comment Line" where("Table Name" = const("Seminar Registration Header"),
+                                                         "No." = Field("No.")));
         }
-        field(23;"Posting Date";Date)
-        {Caption = 'Posting Date';
+        field(23; "Posting Date"; Date)
+        {
+            Caption = 'Posting Date';
         }
-        field(24;"Document Date";Date)
-        {Caption = 'Document Date';
+        field(24; "Document Date"; Date)
+        {
+            Caption = 'Document Date';
         }
-        field(25;"Reason Code";Code[10])
-        {Caption = 'Reason Code';
+        field(25; "Reason Code"; Code[10])
+        {
+            Caption = 'Reason Code';
             TableRelation = "Reason Code".Code;
         }
-        field(26;"No. Series";Code[10])
-        {Caption = 'No. Series';
+        field(26; "No. Series"; Code[10])
+        {
+            Caption = 'No. Series';
             Editable = false;
             TableRelation = "No. Series".Code;
         }
-        field(27;"Posting No. Series";Code[10])
-        {Caption = 'Posting No. Series';
+        field(27; "Posting No. Series"; Code[10])
+        {
+            Caption = 'Posting No. Series';
             TableRelation = "No. Series".Code;
 
             trigger OnLookup();
             begin
                 with SeminarRegHeader do begin
-                  SeminarRegHeader := Rec;
-                  SeminarSetup.GET;
-                  SeminarSetup.TestField("Seminar Registration Nos.");
-                  SeminarSetup.TestField("Posted Seminar Reg. Nos.");
-                  if NoSeriesMgt.LookupSeries(SeminarSetup."Posted Seminar Reg. Nos.","Posting No. Series")
-                  then begin
-                    VALIDATE("Posting No. Series");
-                  end;
-                  Rec := SeminarRegHeader;
+                    SeminarRegHeader := Rec;
+                    SeminarSetup.GET;
+                    SeminarSetup.TestField("Seminar Registration Nos.");
+                    SeminarSetup.TestField("Posted Seminar Reg. Nos.");
+                    if NoSeriesMgt.LookupSeries(SeminarSetup."Posted Seminar Reg. Nos.", "Posting No. Series")
+                    then begin
+                        VALIDATE("Posting No. Series");
+                    end;
+                    Rec := SeminarRegHeader;
                 end;
             end;
 
             trigger OnValidate();
             begin
                 if "Posting No. Series" <> '' then begin
-                  SeminarSetup.GET;
-                  SeminarSetup.TestField("Seminar Registration Nos.");
-                  SeminarSetup.TestField("Posted Seminar Reg. Nos.");
-                  NoSeriesMgt.TestSeries(SeminarSetup."Posted Seminar Reg. Nos.","Posting No. Series");
+                    SeminarSetup.GET;
+                    SeminarSetup.TestField("Seminar Registration Nos.");
+                    SeminarSetup.TestField("Posted Seminar Reg. Nos.");
+                    NoSeriesMgt.TestSeries(SeminarSetup."Posted Seminar Reg. Nos.", "Posting No. Series");
                 end;
-                TestField("Posting No.",'');
+                TestField("Posting No.", '');
             end;
         }
-        field(28;"Posting No.";Code[20])
-        {   Caption = 'Posting No.';
+        field(28; "Posting No."; Code[20])
+        {
+            Caption = 'Posting No.';
         }
 
     }
 
     keys
     {
-        key(PK;"No.")
+        key(PK; "No.")
         {
         }
-        key(Key2;"Room Code")
+        key(Key2; "Room Resource No.")
         {
             SumIndexFields = Duration;
         }
     }
 
     var
-        PostCode : Record "Post Code";
-        Seminar : Record "CSD Seminar";
-        SeminarCommentLine : Record "CSD Seminar Comment Line";
-        SeminarCharge : Record "CSD Seminar Charge";
-        SeminarRegHeader : Record "CSD Seminar Reg. Header";
-        SeminarRegLine : Record "CSD Seminar Registration Line";
-        SeminarRoom : Record Resource;
-        SeminarSetup : Record "CSD Seminar Setup";
-        NoSeriesMgt : Codeunit NoSeriesManagement;
-        Text001 : TextConst ENU = 'You cannot delete the Seminar Registration, because there is at least one %1 where %2=%3.';
-        Text002 : TextConst ENU = 'You cannot change the %1, because there is at least one %2 with %3=%4.';
-        Text004 : Label 'This Seminar is for %1 participants. \The selected Room has a maximum of %2 participants \Do you want to change %3 for the Seminar from %4 to %5?';
-        Text005 : Label 'Should the new %1 be copied to all %2 that are not yet invoiced?';
-        Text006 : Label 'You cannot delete the Seminar Registration, because there is at least one %1.';
+        PostCode: Record "Post Code";
+        Seminar: Record "CSD Seminar";
+        SeminarCommentLine: Record "CSD Seminar Comment Line";
+        SeminarCharge: Record "CSD Seminar Charge";
+        SeminarRegHeader: Record "CSD Seminar Reg. Header";
+        SeminarRegLine: Record "CSD Seminar Registration Line";
+        SeminarRoom: Record Resource;
+        SeminarSetup: Record "CSD Seminar Setup";
+        //NoSeriesMgt : Codeunit "NoSeriesManagement";
+        Text001: TextConst ENU = 'You cannot delete the Seminar Registration, because there is at least one %1 where %2=%3.';
+        Text002: TextConst ENU = 'You cannot change the %1, because there is at least one %2 with %3=%4.';
+        Text004: Label 'This Seminar is for %1 participants. \The selected Room has a maximum of %2 participants \Do you want to change %3 for the Seminar from %4 to %5?';
+        Text005: Label 'Should the new %1 be copied to all %2 that are not yet invoiced?';
+        Text006: Label 'You cannot delete the Seminar Registration, because there is at least one %1.';
 
     trigger OnDelete();
     begin
-        if (CurrFieldNo>0) then  
-       TestField(Status,Status::Canceled); 
+        if (CurrFieldNo > 0) then
+            TestField(Status, Status::Canceled);
         SeminarRegLine.RESET;
-        SeminarRegLine.SETRANGE("Document No.","No.");
-        SeminarRegLine.SETRANGE(Registered,true);
+        SeminarRegLine.SETRANGE("Document No.", "No.");
+        SeminarRegLine.SETRANGE(Registered, true);
         if SeminarRegLine.FIND('-') then
-          ERROR(
-            Text001,
-            SeminarRegLine.TableCaption,
-            SeminarRegLine.FieldCaption(Registered),
-            true);
+            ERROR(
+              Text001,
+              SeminarRegLine.TableCaption,
+              SeminarRegLine.FieldCaption(Registered),
+              true);
         SeminarRegLine.SETRANGE(Registered);
         SeminarRegLine.deleteALL(true);
 
         SeminarCharge.RESET;
-        SeminarCharge.SETRANGE("Document No.","No.");
+        SeminarCharge.SETRANGE("Document No.", "No.");
         if not SeminarCharge.ISEMPTY then
-          ERROR(Text006,SeminarCharge.TableCaption);
+            ERROR(Text006, SeminarCharge.TableCaption);
 
         SeminarCommentLine.RESET;
-        SeminarCommentLine.SETRANGE("Table Name",SeminarCommentLine."Table Name"::"Seminar Registration");
-        SeminarCommentLine.SETRANGE("No.","No.");
+        SeminarCommentLine.SETRANGE("Table Name", SeminarCommentLine."Table Name"::"Seminar Registration");
+        SeminarCommentLine.SETRANGE("No.", "No.");
         SeminarCommentLine.deleteALL;
     end;
 
     trigger OnInsert();
     begin
         if "No." = '' then begin
-          SeminarSetup.GET;
-          SeminarSetup.TestField("Seminar Registration Nos.");
-          NoSeriesMgt.InitSeries(SeminarSetup."Seminar Registration Nos.",xRec."No. Series",0D,"No.","No. Series");
-        end;
-        initrecord; 
-    end;
-local procedure InitRecord()
-begin
-    if "Posting Date" = 0D then 
-     "Posting Date" := WORKDATE; 
-     "Document Date" := WORKDATE; 
-      SeminarSetup.GET; 
-      NoSeriesMgt.SetDefaultSeries("Posting No. Series",  
-      SeminarSetup."Posted Seminar Reg. Nos."); 
-end; 
-    
-    procedure AssistEdit(OldSeminarRegHeader : Record "CSD Seminar Reg. Header") : Boolean;
-    begin
-        with SeminarRegHeader do begin
-          SeminarRegHeader := Rec;
-          SeminarSetup.GET;
-          SeminarSetup.TestField("Seminar Registration Nos.");
-          if NoSeriesMgt.SelectSeries(SeminarSetup."Seminar Registration Nos.",OldSeminarRegHeader."No. Series","No. Series") then begin
             SeminarSetup.GET;
             SeminarSetup.TestField("Seminar Registration Nos.");
-            NoSeriesMgt.SetSeries("No.");
-            Rec := SeminarRegHeader;
-            exit(true);
-          end;
+            NoSeriesMgt.InitSeries(SeminarSetup."Seminar Registration Nos.", xRec."No. Series", 0D, "No.", "No. Series");
+        end;
+        initrecord;
+    end;
+
+    local procedure InitRecord()
+    begin
+        if "Posting Date" = 0D then
+            "Posting Date" := WORKDATE;
+        "Document Date" := WORKDATE;
+        SeminarSetup.GET;
+        NoSeriesMgt.SetDefaultSeries("Posting No. Series",
+        SeminarSetup."Posted Seminar Reg. Nos.");
+    end;
+
+    procedure AssistEdit(OldSeminarRegHeader: Record "CSD Seminar Reg. Header"): Boolean;
+    begin
+        with SeminarRegHeader do begin
+            SeminarRegHeader := Rec;
+            SeminarSetup.GET;
+            SeminarSetup.TestField("Seminar Registration Nos.");
+            if NoSeriesMgt.SelectSeries(SeminarSetup."Seminar Registration Nos.", OldSeminarRegHeader."No. Series", "No. Series") then begin
+                SeminarSetup.GET;
+                SeminarSetup.TestField("Seminar Registration Nos.");
+                NoSeriesMgt.SetSeries("No.");
+                Rec := SeminarRegHeader;
+                exit(true);
+            end;
         end;
     end;
 }
