@@ -308,7 +308,7 @@ table 50110 "CSD Seminar Reg. Header"
         SeminarRegLine: Record "CSD Seminar Registration Line";
         SeminarRoom: Record Resource;
         SeminarSetup: Record "CSD Seminar Setup";
-        //NoSeriesMgt : Codeunit "NoSeriesManagement";
+        NoSeriesMgt: Codeunit "NoSeriesManagement";
         Text001: TextConst ENU = 'You cannot delete the Seminar Registration, because there is at least one %1 where %2=%3.';
         Text002: TextConst ENU = 'You cannot change the %1, because there is at least one %2 with %3=%4.';
         Text004: Label 'This Seminar is for %1 participants. \The selected Room has a maximum of %2 participants \Do you want to change %3 for the Seminar from %4 to %5?';
@@ -337,7 +337,7 @@ table 50110 "CSD Seminar Reg. Header"
             ERROR(Text006, SeminarCharge.TableCaption);
 
         SeminarCommentLine.RESET;
-        SeminarCommentLine.SETRANGE("Table Name", SeminarCommentLine."Table Name"::"Seminar Registration");
+        SeminarCommentLine.SETRANGE("Table Name", SeminarCommentLine."Table Name"::"Seminar Registration Header");
         SeminarCommentLine.SETRANGE("No.", "No.");
         SeminarCommentLine.deleteALL;
     end;
@@ -364,18 +364,17 @@ table 50110 "CSD Seminar Reg. Header"
 
     procedure AssistEdit(OldSeminarRegHeader: Record "CSD Seminar Reg. Header"): Boolean;
     begin
-        with SeminarRegHeader do begin
-            SeminarRegHeader := Rec;
+        SeminarRegHeader := Rec;
+        SeminarSetup.GET;
+        SeminarSetup.TestField("Seminar Registration Nos.");
+        if NoSeriesMgt.SelectSeries(SeminarSetup."Seminar Registration Nos.", OldSeminarRegHeader."No. Series", "No. Series") then begin
             SeminarSetup.GET;
             SeminarSetup.TestField("Seminar Registration Nos.");
-            if NoSeriesMgt.SelectSeries(SeminarSetup."Seminar Registration Nos.", OldSeminarRegHeader."No. Series", "No. Series") then begin
-                SeminarSetup.GET;
-                SeminarSetup.TestField("Seminar Registration Nos.");
-                NoSeriesMgt.SetSeries("No.");
-                Rec := SeminarRegHeader;
-                exit(true);
-            end;
+            NoSeriesMgt.SetSeries("No.");
+            Rec := SeminarRegHeader;
+            exit(true);
         end;
     end;
+
 }
 
