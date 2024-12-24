@@ -1,6 +1,7 @@
 codeunit 50131 "CSD Seminar Jnl.-Check Line"
+// CSD1.00 - 2024-12-20 - MaldiGitWork
+// Chapter 7 - Lab 2-1 
 {
-    // Chapter 7 - Lab 2-1 
     TableNo = "CSD Seminar Journal Line";
 
     var
@@ -16,6 +17,22 @@ codeunit 50131 "CSD Seminar Jnl.-Check Line"
         if EmptyLine() then
             exit;
         RunCheck(Rec);
+    end;
+
+    local procedure EmptyLine(): Boolean
+    begin
+        exit(
+            ("Seminar No." = '') and
+            (Quantity = 0) and
+            ("Unit Price" = 0) and
+            ("Total Price" = 0) and
+            ("Participant Contact No." = '') and
+            ("Room Resource No." = '') and
+            ("Instructor Resource No." = '') and
+            (Description = '') and
+            ("Bill-to Customer No." = '') and
+            ("Seminar Registration No." = '')
+        );
     end;
 
     procedure RunCheck(var SemJnlLine: Record "CSD Seminar Journal Line")
@@ -62,10 +79,5 @@ codeunit 50131 "CSD Seminar Jnl.-Check Line"
         end;
         if (SemJnlLine."Posting Date" < AllowPostingFrom) or (SemJnlLine."Posting Date" > AllowPostingTo) then
             SemJnlLine.FieldError("Posting Date", PostingDateTxt);
-    end;
-
-    local procedure EmptyLine(): Boolean
-    begin
-        exit(false); // Implementation needed based on your requirements
     end;
 }
