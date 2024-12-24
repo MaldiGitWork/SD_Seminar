@@ -2,7 +2,7 @@ table 50131 "CSD Seminar Journal Line"
 {
     // CSD1.00 - 2024-12-03 - MaldiGitWork
     //   Chapter 7 - Lab 1
-    //     - Created new table
+    //     - Created Journal Line Table
 
     Caption = 'Seminar Journal Line';
 

@@ -19,7 +19,7 @@ codeunit 50131 "CSD Seminar Jnl.-Check Line"
         RunCheck(Rec);
     end;
 
-    local procedure EmptyLine(): Boolean
+    local procedure EmptyLine(): Boolean;
     begin
         exit(
             ("Seminar No." = '') and
