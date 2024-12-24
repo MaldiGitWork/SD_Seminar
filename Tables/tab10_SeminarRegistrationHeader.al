@@ -257,18 +257,17 @@ table 50110 "CSD Seminar Reg. Header"
 
             trigger OnLookup();
             begin
-                with SeminarRegHeader do begin
-                    SeminarRegHeader := Rec;
-                    SeminarSetup.GET;
-                    SeminarSetup.TestField("Seminar Registration Nos.");
-                    SeminarSetup.TestField("Posted Seminar Reg. Nos.");
-                    if NoSeriesMgt.LookupSeries(SeminarSetup."Posted Seminar Reg. Nos.", "Posting No. Series")
-                    then begin
-                        VALIDATE("Posting No. Series");
-                    end;
-                    Rec := SeminarRegHeader;
+                SeminarRegHeader := Rec;
+                SeminarSetup.GET;
+                SeminarSetup.TestField("Seminar Registration Nos.");
+                SeminarSetup.TestField("Posted Seminar Reg. Nos.");
+                if NoSeriesMgt.LookupSeries(SeminarSetup."Posted Seminar Reg. Nos.", "Posting No. Series")
+                then begin
+                    VALIDATE("Posting No. Series");
                 end;
+                Rec := SeminarRegHeader;
             end;
+
 
             trigger OnValidate();
             begin
