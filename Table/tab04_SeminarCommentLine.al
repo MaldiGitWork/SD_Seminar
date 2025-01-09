@@ -1,5 +1,9 @@
 table 50104 "CSD Seminar Comment Line"
 {
+    // Chapter 5 - Lab 2-1 
+    // Chapter 7 - Lab 3-2
+    // CSD1.00 - 2024-01-08 - MaldiGitWork
+
     Caption = 'Seminar Comment Line';
     LookupPageId = "CSD Seminar Comment List";
     DrillDownPageId = "CSD Seminar Comment List";
