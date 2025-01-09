@@ -2,10 +2,10 @@ page 50118 "CSD Posted Seminar Reg.Header"
 {
     // CSD1.00 - 2025-01-08 - MaldiGitWork
     // Chapter 7 - Lab 3-1 
-    //     - Created CSD Posted Seminar Reg.header
+    //Created Page for - Created CSD Posted Seminar Reg.header
 
     Caption = 'Posted Seminar Reg.Header';
-    SourceTable = "CSD Seminar Reg. Header";
+    SourceTable = "CSD Posted Seminar Reg. Header";
     PageType = Document;
     Editable = false;  // Posted documents should not be editable
     UsageCategory = History;  // Changed from tasks to History as this is for posted documents

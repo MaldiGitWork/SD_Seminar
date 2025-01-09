@@ -228,7 +228,7 @@ table 50110 "CSD Seminar Reg. Header"
             Caption = 'Comment';
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = Exist("CSD Seminar Comment Line" where("Table Name" = const("Posted Seminar Reg. Header"), "No." = Field("No.")));
+            CalcFormula = Exist("CSD Seminar Comment Line" where("Table Name" = const("Seminar Registration Header"), "No." = Field("No.")));
         }
         field(23; "Posting Date"; Date)
         {
@@ -282,17 +282,6 @@ table 50110 "CSD Seminar Reg. Header"
         field(28; "Posting No."; Code[20])
         {
             Caption = 'Posting No.';
-        }
-        field(29; "User Id"; Code[50])
-        {
-            Caption = 'User Id';
-            TableRelation = User;
-            ValidateTableRelation = false;
-        }
-        field(30; "Source Code"; Code[10])
-        {
-            Caption = 'Source Code';
-            TableRelation = "Source Code";
         }
 
     }
