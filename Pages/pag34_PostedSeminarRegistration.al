@@ -1,13 +1,13 @@
-/*page 50134  "CSD Posted Seminar Reg."
+page 50134 "CSD Posted Seminar Reg."
 {
-    // CSD1.00 - 2018-01-01 - D. E. Veloper
+    // CSD1.00 - 2025-01-09 - MaldiGitWork
     //   Chapter 7 - Lab 3
     //     - Created new page
 
     Caption = 'Seminar Registration';
     Editable = false;
     PageType = Document;
-    SourceTable = Table50118;
+    SourceTable = 50118;
 
     layout
     {
@@ -15,102 +15,102 @@
         {
             group(General)
             {
-                field("No.";"No.")
+                field("No."; rec."No.")
                 {
                 }
-                field("Starting Date";"Starting Date")
+                field("Starting Date"; rec."Starting Date")
                 {
                 }
-                field("Seminar No.";"Seminar No.")
+                field("Seminar No."; rec."Seminar No.")
                 {
                 }
-                field("Seminar Name";"Seminar Name")
+                field("Seminar Name"; rec."Seminar Name")
                 {
                 }
-                field("Instructor Resource No.";"Instructor Resource No.")
+                field("Instructor Resource No."; rec."Instructor Resource No.")
                 {
                 }
-                field("Instructor Name";"Instructor Name")
+                field("Instructor Name"; rec."Instructor Name")
                 {
                 }
-                field("Posting Date";"Posting Date")
+                field("Posting Date"; rec."Posting Date")
                 {
                 }
-                field("Document Date";"Document Date")
+                field("Document Date"; rec."Document Date")
                 {
                 }
-                field(Status;Status)
+                field(Status; rec.Status)
                 {
                 }
-                field(Duration;Duration)
+                field(Duration; rec.Duration)
                 {
                 }
-                field("Minimum Participants";"Minimum Participants")
+                field("Minimum Participants"; rec."Minimum Participants")
                 {
                 }
-                field("Maximum Participants";"Maximum Participants")
+                field("Maximum Participants"; rec."Maximum Participants")
                 {
                 }
             }
-            part(SeminarRegistrationLines;50135)
+            part("SeminarRegistrationLines"; 50135)
             {
-                SubPageLink = Document No.=Field(No.);
+                SubPageLink = "Document No." = Field("No.");
             }
             group("Seminar Room")
             {
-                field("Room Resource No.";"Room Resource No.")
+                field("Room Resource No."; rec."Room Resource No.")
                 {
                 }
-                field("Room Name";"Room Name")
+                field("Room Name"; rec."Room Name")
                 {
                 }
-                field("Room Address";"Room Address")
+                field("Room Address"; rec."Room Address")
                 {
                 }
-                field("Room Address 2";"Room Address 2")
+                field("Room Address 2"; rec."Room Address 2")
                 {
                 }
-                field("Room Post Code";"Room Post Code")
+                field("Room Post Code"; rec."Room Post Code")
                 {
                 }
-                field("Room City";"Room City")
+                field("Room City"; rec."Room City")
                 {
                 }
-                field("Room Country/Reg. Code";"Room Country/Reg. Code")
+                field("Room Country/Reg. Code"; rec."Room Country/Reg. Code")
                 {
                 }
-                field("Room County";"Room County")
+                field("Room County"; rec."Room County")
                 {
                 }
             }
             group(Invoicing)
             {
-                field("Gen. Prod. Posting Group";"Gen. Prod. Posting Group")
+                field("Gen. Prod. Posting Group"; rec."Gen. Prod. Posting Group")
                 {
                 }
-                field("VAT Prod. Posting Group";"VAT Prod. Posting Group")
+                field("VAT Prod. Posting Group"; rec."VAT Prod. Posting Group")
                 {
                 }
-                field("Seminar Price";"Seminar Price")
+                field("Seminar Price"; rec."Seminar Price")
                 {
                 }
             }
         }
         area(factboxes)
         {
-            part(;50117)
+            part("Seminar Details FactBox"; 50117)
             {
-                SubPageLink = No.=Field(Seminar No.);
+                SubPageLink = "No." = Field("Seminar No.");
             }
-            part(;9084)
+            part("Customer Details Factbox"; 9084)
             {
-                Provider = SeminarRegistrationLines;
-                SubPageLink = No.=Field(Bill-to Customer No.);
+                Provider = "SeminarRegistrationLines";
+                SubPageLink = "No." = Field("Bill-to Customer No.");
             }
-            systempart(;Links)
+            systempart(Links; links)
             {
             }
-            systempart(;Notes)
+            systempart(Notes; notes)
             {
             }
         }
@@ -128,19 +128,17 @@
                     Caption = 'Co&mments';
                     Image = Comment;
                     RunObject = Page 50106;
-                    RunPageLink = No.=Field(No.);
-                    RunPageView = where(Document Type=const(Posted Seminar Registration));
+                    RunPageLink = "No." = Field("No.");
+                    //RunPageView = where("Document Type" = const("Posted Seminar Registration"));
                 }
                 action("&Charges")
                 {
                     Caption = '&Charges';
                     Image = Costs;
                     RunObject = Page 50139;
-                    RunPageLink = Document No.=Field(No.);
+                    RunPageLink = "Document No." = Field("No.");
                 }
             }
         }
     }
 }
-
-*/

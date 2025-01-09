@@ -1,14 +1,14 @@
-/*page 50136  "CSD Posted Seminar Reg. List"
+page 50136 "CSD Posted Seminar Reg. List"
 {
     // CSD1.00 - 2018-01-01 - D. E. Veloper
     //   Chapter 7 - Lab 3
     //     - Created new page
 
     Caption = 'Seminar Registration List';
-    CardPageID =  "CSD Posted Seminar Reg.";
+    CardPageID = "CSD Posted Seminar Reg.";
     Editable = false;
     PageType = List;
-    SourceTable = Table50118;
+    SourceTable = 50118;
 
     layout
     {
@@ -16,42 +16,42 @@
         {
             repeater(Group)
             {
-                field("No.";"No.")
+                field("No."; rec."No.")
                 {
                 }
-                field("Starting Date";"Starting Date")
+                field("Starting Date"; rec."Starting Date")
                 {
                 }
-                field("Seminar No.";"Seminar No.")
+                field("Seminar No."; rec."Seminar No.")
                 {
                 }
-                field("Seminar Name";"Seminar Name")
+                field("Seminar Name"; rec."Seminar Name")
                 {
                 }
-                field(Status;Status)
+                field(Status; rec.Status)
                 {
                 }
-                field(Duration;Duration)
+                field(Duration; rec.Duration)
                 {
                 }
-                field("Maximum Participants";"Maximum Participants")
+                field("Maximum Participants"; rec."Maximum Participants")
                 {
                 }
-                field("Room Resource No.";"Room Resource No.")
+                field("Room Resource No."; rec."Room Resource No.")
                 {
                 }
             }
         }
         area(factboxes)
         {
-            part(;50117)
+            part("CSD Seminar Details FactBox"; 50117)
             {
-                SubPageLink = No.=Field(Seminar No.);
+                SubPageLink = "No." = Field("Seminar No.");
             }
-            systempart(;Links)
+            systempart(Links; links)
             {
             }
-            systempart(;Notes)
+            systempart(Notes; notes)
             {
             }
         }
@@ -69,19 +69,18 @@
                     Caption = 'Co&mments';
                     Image = Comment;
                     RunObject = Page 50106;
-                    RunPageLink = No.=Field(No.);
-                    RunPageView = where(Document Type=const(Posted Seminar Registration));
+                    RunPageLink = "No." = Field("No.");
+                    //RunPageView = where("Document Type"=const("Posted Seminar Registration"));
                 }
                 action("&Charges")
                 {
                     Caption = '&Charges';
                     Image = Costs;
                     RunObject = Page 50139;
-                    RunPageLink = Document No.=Field(No.);
+                    RunPageLink = "Document No." = Field("No.");
+
                 }
             }
         }
     }
 }
-
-*/
