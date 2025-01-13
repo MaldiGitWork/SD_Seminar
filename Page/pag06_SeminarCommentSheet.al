@@ -1,5 +1,7 @@
 page 50106 "CSD Seminar Comment Sheet"
 {
+    // CSD1.00 - 2024-01-10 - MaldiGitWork
+
     Caption = 'Seminar Comment Sheet';
     PageType = List;
     SourceTable = "CSD Seminar Comment Line";

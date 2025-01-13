@@ -1,6 +1,6 @@
 page 50136 "CSD Posted Seminar Reg. List"
 {
-    // CSD1.00 - 2018-01-01 - D. E. Veloper
+    // CSD1.00 - 2024-01-10 - MaldiGitWork
     //   Chapter 7 - Lab 3
     //     - Created new page
 
