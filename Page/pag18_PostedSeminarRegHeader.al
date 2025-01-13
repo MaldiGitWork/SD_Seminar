@@ -1,4 +1,4 @@
-page 50118 "CSD Posted Seminar Reg.Header"
+/*page 50118 "CSD Posted Seminar Reg.Header"
 {
     // CSD1.00 - 2025-01-08 - MaldiGitWork
     // Chapter 7 - Lab 3-1 
@@ -71,3 +71,4 @@ page 50118 "CSD Posted Seminar Reg.Header"
         }
     }
 }
+*/
