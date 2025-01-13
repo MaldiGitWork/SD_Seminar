@@ -1,6 +1,6 @@
 table 50121 "CSD Posted Seminar Charge"
 {
-    // CSD1.00 - 2024-12-03 - MaldiGitWork
+    // CSD1.00 - 2024-01-10 - MaldiGitWork
     //   Chapter 7 - Lab 3-4
     //     - Created new table
     Caption = 'Posted Seminar Charge';

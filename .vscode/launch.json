@@ -6,16 +6,17 @@
             "type": "al",
             "request": "launch",
             "name": "localhost",
-            "server": "http://localhost",
+            "server": "http://localhost:8080/BC160",
             "serverInstance": "BC160",
             "authentication": "Windows",
             "startupObjectId": 22,
             "startupObjectType": "Page",
-            "breakOnError": false,
-            "launchBrowser": false,
+            "breakOnError": true,
+            "launchBrowser": true,
             "enableLongRunningSqlStatements": true,
             "enableSqlInformationDebugger": true,
-            "tenant": "default"
+            "tenant": "default",
+            "port": 7049
         }
     ]
 }
