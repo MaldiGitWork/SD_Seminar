@@ -14,4 +14,12 @@ enum 50104 "CSD Seminar Comment Table Name"
     {
         Caption = 'Posted Seminar Registration';
     }
+    value(7; "CSD Seminar Registration")
+    {
+        Caption = 'Seminar Registration';
+    }
+    value(11; "CSD Posted Seminar Registration")
+    {
+        Caption = 'Posted Seminar Registration';
+    }
 }

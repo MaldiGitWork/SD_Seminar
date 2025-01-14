@@ -2,12 +2,85 @@ codeunit 50100 "CSD Seminar-Post"
 {
     // CSD1.00 - 2025-01-11 - MaldiGitWork
     //   Chapter 7 - Lab 5-2
+    // Chapter 7 - Lab 4-7 
     //     - Created new codeunit
 
     TableNo = 50110;
 
     trigger OnRun();
     begin
+        ClearAll;
+        SeminarRegHeader := Rec;
+        begin
+            SeminarRegHeader.TestField("Posting Date");
+            SeminarRegHeader.TestField("Document Date");
+            SeminarRegHeader.TestField("Seminar No.");
+            SeminarRegHeader.TestField(Duration);
+            SeminarRegHeader.TestField("Instructor Resource No.");
+            SeminarRegHeader.TestField("Room Resource No.");
+            SeminarRegHeader.TestField(Status, rec.Status::Closed);
+            SeminarRegLine.Reset;
+            SeminarRegLine.SetRange("Document No.", rec."No.");
+            if SeminarRegLine.IsEmpty then
+                Error(Text001);
+        end;
+        Window.Open('#1#################################\\' + Text002);
+        Window.Update(1, StrSubstNo('%1 %2', Text003, rec."No."));
+        if SeminarRegHeader."Posting No." = '' then begin
+            SeminarRegHeader.TestField("Posting No. Series");
+            rec."Posting No." := NoSeriesMgt.GetNextNo(rec."Posting No. Series", rec."Posting Date", true);
+            rec.modify;
+            Commit;
+        end;
+        SeminarRegLine.LockTable;
+        Rec := SeminarRegHeader;
+
+        SourceCodeSetup.Get;
+        SourceCode := SourceCodeSetup."CSD Seminar";
+        PstdSeminarRegHeader.Init;
+        PstdSeminarRegHeader.TransferFields(SeminarRegHeader);
+        PstdSeminarRegHeader."No." := rec."Posting No.";
+        PstdSeminarRegHeader."No. Series" := rec."Posting No. Series";
+        PstdSeminarRegHeader."Source Code" := SourceCode;
+        PstdSeminarRegHeader."User ID" := UserId;
+        PstdSeminarRegHeader.Insert;
+
+        Window.Update(1, StrSubstNo(Text004, rec."No.", PstdSeminarRegHeader."No."));
+        CopyCommentLines(
+        SeminarCommentLine."Table Name"::"CSD Seminar Registration", SeminarCommentLine."Table Name"::"CSD Posted Seminar Registration", SeminarRegHeader."No.", PstdSeminarRegHeader."No.");
+        CopyCharges(rec."No.", PstdSeminarRegHeader."No.");
+
+        LineCount := 0;
+        SeminarRegLine.Reset;
+        SeminarRegLine.SetRange("Document No.", rec."No.");
+        if SeminarRegLine.FindSet then begin
+            repeat
+            until SeminarRegLine.Next = 0;
+        end;
+        Window.Update(2, LineCount);
+        SeminarRegLine.TestField("Bill-to Customer No.");
+        SeminarRegLine.TestField("Participant Contact No.");
+        if not SeminarRegLine."To Invoice" then begin
+            SeminarRegLine."Seminar Price" := 0;
+            SeminarRegLine."Line Discount %" := 0;
+            SeminarRegLine."Line Discount Amount" := 0;
+            SeminarRegLine.Amount := 0;
+        end;
+        // Post seminar entry  
+        PostSeminarJnlLine(2); // Participant 
+                               // Insert posted seminar registration line  
+        PstdSeminarRegLine.Init;
+        PstdSeminarRegLine.TransferFields(SeminarRegLine);
+        PstdSeminarRegLine."Document No." :=
+             PstdSeminarRegHeader."No.";
+        PstdSeminarRegLine.Insert;
+        // Post charges to seminar ledger  
+        PostCharges;
+        // Post instructor to seminar ledger  
+        PostSeminarJnlLine(0); // Instructor 
+                               // Post seminar room to seminar ledger  
+        PostSeminarJnlLine(1); // Room
+        SeminarRegHeader.Delete(true);
     end;
 
     var
@@ -147,12 +220,28 @@ codeunit 50100 "CSD Seminar-Post"
                     SeminarJnlLine."Unit Price" := SeminarRegLine.Amount;
                     SeminarJnlLine."Total Price" := SeminarRegLine.Amount;
                 end;
-
+            ChargeType::Charge:
+                begin
+                    SeminarJnlLine.Description := SeminarCharge.Description;
+                    SeminarJnlLine."Bill-to Customer No." := SeminarCharge."Bill-to Customer No.";
+                    SeminarJnlLine.Type := SeminarCharge.Type;
+                    SeminarJnlLine.Quantity := SeminarCharge.Quantity;
+                    SeminarJnlLine."Unit Price" := SeminarCharge."Unit Price";
+                    SeminarJnlLine."Total Price" := SeminarCharge."Total Price";
+                    SeminarJnlLine.Chargeable := SeminarCharge."To Invoice";
+                end;
         end;
+        SeminarJnlPostLine.RunWithCheck(SeminarJnlLine);
     end;
 
 
     local procedure PostCharges();
     begin
+        SeminarCharge.reset;
+        SeminarCharge.SetRange("Document No.", SeminarRegHeader."No.");
+        if SeminarCharge.FindSet(false, false) then
+            repeat
+                PostSeminarJnlLine(3); // Charge  
+            until SeminarCharge.next = 0;
     end;
 }
