@@ -3,7 +3,8 @@ page 50110 "CSD Seminar Registration"
     // CSD1.00 - 2024-12-03 - MaldiGitWork
     //   Chapter 6 - Lab 3-1
     //     - Created new page
-
+    // Chapter 7 - Lab 4-8 
+    // Added Action Post 
     Caption = 'Seminar Registration';
     PageType = Document;
     SourceTable = "CSD Seminar Reg. Header";
@@ -145,8 +146,17 @@ page 50110 "CSD Seminar Registration"
                     RunObject = Page 50124;
                     RunPageLink = "Document No." = Field("No.");
                 }
+                action("&Post")
+                {
+                    Caption = '&Post';
+                    Image = PostDocument;
+                    Promoted = true;
+                    PromotedIsBig = true;
+                    PromotedCategory = Process;
+                    ShortcutKey = F9;
+                    RunObject = codeunit "CSD Seminar-Post (Yes/No)";
+                }
             }
         }
     }
 }
-
