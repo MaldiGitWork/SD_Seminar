@@ -3,7 +3,11 @@ table 50118 "CSD Posted Seminar Reg. Header"
     // CSD1.00 - 2024-01-08 - MaldiGitWork
     //   Chapter 7 - Lab 1-3    
     //     - Created new table
+    //   Chapter 8 - Lab 2 - 3 
+    //   Added LookupPageId & DrilldownPageId properties
     Caption = 'Posted Seminar Reg. Header';
+    LookupPageId = "CSD Posted Seminar Reg. List";
+    DrillDownPageId = "CSD Posted Seminar Reg. List";
 
 
     fields
