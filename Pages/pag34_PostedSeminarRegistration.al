@@ -3,8 +3,10 @@ page 50134 "CSD Posted Seminar Reg."
     // CSD1.00 - 2025-01-09 - MaldiGitWork
     //   Chapter 7 - Lab 3
     //     - Created new page
+    //   Chapter 8 - Lab 2 - 4 
+    //   Added Action Navigate 
 
-    Caption = 'Seminar Registration';
+    Caption = 'Posted Seminar Registration';
     Editable = false;
     PageType = Document;
     SourceTable = 50118;
@@ -138,6 +140,23 @@ page 50134 "CSD Posted Seminar Reg."
                     RunObject = Page 50139;
                     RunPageLink = "Document No." = Field("No.");
                 }
+            }
+        }
+        area(Processing)
+        {
+            action("&Navigate")
+            {
+                Caption = '&Navigate';
+                Image = Navigate;
+                Promoted = true;
+                PromotedCategory = Process;
+                trigger OnAction();
+                var
+                    Navigate: page Navigate;
+                begin
+                    Navigate.SetDoc(rec."Posting Date", rec."No.");
+                    Navigate.RUN;
+                end;
             }
         }
     }
